@@ -173,9 +173,10 @@ export default function TaskApp() {
             </select>
             <input
               type="date"
-              className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500 date-icon"
               value={dueDate}
               onChange={(e) => setDueDate(e.target.value)}
+              style={{ color: theme === 'dark' ? '#fff' : '#000' }}
             />
             <input
               className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500"

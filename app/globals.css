@@ -1,3 +1,10 @@
+/* Make date picker icon white in dark mode */
+.date-icon::-webkit-calendar-picker-indicator {
+  filter: invert(0);
+}
+.dark .date-icon::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
 
 @tailwind base;
 @tailwind components;
