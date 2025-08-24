@@ -11,6 +11,7 @@ type Task = {
   createdAt: number;
   dueDate?: string;
   priority: "low" | "medium" | "high";
+  tags?: string[];
 };
 
 type User = { email: string };
@@ -53,6 +54,7 @@ export default function TaskApp() {
   const [notes, setNotes] = useState("");
   const [priority, setPriority] = useState<Task["priority"]>("medium");
   const [dueDate, setDueDate] = useState<string>("");
+  const [tagsInput, setTagsInput] = useState("");
 
   // Filter
   const [filter, setFilter] = useState<Filter>("all");
@@ -73,13 +75,15 @@ export default function TaskApp() {
       done: false,
       createdAt: Date.now(),
       dueDate: dueDate || undefined,
-      priority
+      priority,
+      tags: tagsInput.split(",").map(tag => tag.trim()).filter(Boolean)
     };
     setTasks([t, ...tasks]);
     setTitle("");
     setNotes("");
     setDueDate("");
     setPriority("medium");
+    setTagsInput("");
   }
 
   function toggleDone(id: string) {
@@ -151,6 +155,12 @@ export default function TaskApp() {
               placeholder="Titel (t.ex. 'Bygga UI för listan')"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+            />
+            <input
+              className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500"
+              placeholder="Taggar (kommaseparerade, t.ex. 'skola, hem')"
+              value={tagsInput}
+              onChange={(e) => setTagsInput(e.target.value)}
             />
             <select
               className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500"
@@ -229,6 +239,11 @@ export default function TaskApp() {
                         {task.priority}
                       </span>
                       {task.dueDate && <span>Due: {task.dueDate}</span>}
+                      {task.tags && task.tags.length > 0 && (
+                        <span>
+                          Taggar: {task.tags.join(", ")}
+                        </span>
+                      )}
                     </div>
                     {task.notes && (
                       <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{task.notes}</p>
